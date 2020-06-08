@@ -1,9 +1,12 @@
-# HSJ
+# HSJ #
 
 Includes code, examples and some data files for computing the HSJ disparity metric and scoring phylogenetic trees under the optimality criteria for phylogenetic trees.
 
+## What's here: ##
 
-# To cite:
+The repo is organized into 3 folders, corresponding to code, illustrative examples, and the data files used in Hopkins & St. John, in prep.  The best way to get started is to work through `examples/first.R`.
+
+## To cite: ##
 
 If you use the disparity metric code, please reference:
 
