@@ -2,6 +2,6 @@
 
 This folder contains the synthetic data used in Hopkins & St. John, in prep.
 
-Describe balanced tree data files
+Describe balanced tree data files.
 
-Describe red-tail/blue-tail examples. (Put script in examples-- maybe include images there?)
+(Put red/blue in examples instead?)
