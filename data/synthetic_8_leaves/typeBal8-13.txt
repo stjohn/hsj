@@ -1,0 +1,13 @@
+1	P	NA
+2	P	NA
+3	P	NA
+4	P	NA
+5	P	NA
+6	P	NA
+7	P	NA
+8	P	NA
+9	P	NA
+10	S	1
+11	S	1
+12	S	1
+13	S	1	
