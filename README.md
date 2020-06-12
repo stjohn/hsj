@@ -4,7 +4,7 @@ Includes code, examples and some data files for computing the HSJ disparity metr
 
 ## What's here: ##
 
-The repo is organized into 3 folders, corresponding to code, illustrative examples, and the data files used in Hopkins & St. John, in prep.
+The repo is organized into 3 folders, corresponding to [code](code), [illustrative examples](examples), and the [data files](data) used in Hopkins & St. John, in prep.
 
 ## To cite: ##
 
