@@ -1,6 +1,6 @@
 # HSJ #
 
-Includes code, examples and some data files for computing the HSJ disparity metric and scoring phylogenetic trees under the optimality criteria for phylogenetic trees.
+Includes code, examples and some data files for computing a scalable disparity metric for datasets with inapplicable characters and scoring phylogenetic trees under the optimality criteria for phylogenetic trees.
 
 ## What's here: ##
 
