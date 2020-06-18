@@ -28,4 +28,5 @@ It is built on the extendible framework of Brazeau et al. 2019 and uses the R pa
 + Hopkins, M. J. and K. St. John. 2018. A new family of dissimilarity metrics for discrete character matrices that include inapplicable characters and its importance for disparity studies. Proceedings of the Royal Society B 285:20181784.
 + Lloyd, G. 2016. Estimating morphological diversity and tempo with discrete character-taxon matrices: implementation, challenges, progress, and future directions. Biological Journal of the Linnean Society 118:131–151.
 + Lloyd, G. T. 2018. Journeys through discrete-character morphospace: synthesizing phylogeny, tempo, and disparity. Palaeontology 61:637–645.
++ Schliep K.P. 2011. phangorn: phylogenetic analysis in R. Bioinformatics, 27(4) 592-593. R package version 2.5.5.
 + Smith, M. R. 2018. TreeSearch: phylogenetic tree search using custom optimality criteria. R package version 0.4.0.
