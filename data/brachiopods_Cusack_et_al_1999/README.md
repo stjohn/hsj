@@ -10,5 +10,4 @@ Annotated list of files:
 + [cusack_et_al_1999_primaries_only.nex](cusack_et_al_1999_primaries_only.nex):  The dataset restricted to the primary characters only.
 + [cusack_et_al_1999_type.txt](cusack_et_al_1999_type.txt):  The text file that specifies primary characters, secondary characters and which primaries they depend.
 + [cusack_paup_search_primaries_only.tre](cusack_paup_search_primaries_only.tre): The 54,524 best scoring trees from a PAUP search, using primary characters only.
-+
-[cusack_paup_search.tre](cusack_paup_search.tre): The 373 best scoring trees from a PAUP search with the full matrix.
++ [cusack_paup_search.tre](cusack_paup_search.tre): The 373 best scoring trees from a PAUP search with the full matrix.
