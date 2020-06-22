@@ -31,4 +31,4 @@ It is built on the extendible framework of Brazeau et al. 2019 and uses the R pa
 + [Lloyd, G. 2016.](https://doi.org/10.1111/bij.12746) Estimating morphological diversity and tempo with discrete character-taxon matrices: implementation, challenges, progress, and future directions. Biological Journal of the Linnean Society 118:131–151.
 + [Lloyd, G. T. 2018.](https://doi.org/10.1111/pala.12380) Journeys through discrete-character morphospace: synthesizing phylogeny, tempo, and disparity. Palaeontology 61:637–645.
 + [Schliep K.P. 2011.](https://doi.org/10.1093/bioinformatics/btq706) phangorn: phylogenetic analysis in R. Bioinformatics, 27(4) 592-593. R package version 2.5.5.
-+ Smith, M. R. 2018. TreeSearch: phylogenetic tree search using custom optimality criteria. R package version 0.4.0.
++ [Smith, M. R. 2018.](https://rdrr.io/cran/TreeSearch/) TreeSearch: phylogenetic tree search using custom optimality criteria. R package version 0.4.0.
