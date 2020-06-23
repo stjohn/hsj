@@ -10,12 +10,13 @@ This directory contains the following R scripts:
 
 The code relies on the following packages:
 
-'''library(ape)
+```
+library(ape)
 library(phangorn)
 library(TreeSearch)
 library(TreeTools)
 library(Claddis)
-'''
+```
 
 ## Sample Code: ##
 
