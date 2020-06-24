@@ -1,0 +1,797 @@
+#NEXUS
+
+[ File output by Morphobank v3.0 (http://www.morphobank.org); 2020-06-19 12.15.13 ]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX=47;
+	TAXLABELS
+		'Eudigraphis_taiwanensis'
+		'Glomeris_marginata'
+		'Cyliosoma_sp'
+		'Glomeridesmus_sp'
+		'Cowiedesmus_eroticopodus'
+		'Archidesmus_macnicoli'
+		'Petaserpes_sp'
+		'Brachycybe_lecontii'
+		'Pseudopolydesmus_sp'
+		'Prostemmiulus_sp'
+		'Abacion_magnum'
+		'Cleidogona_sp'
+		'Gaspestria_genselorum'
+		'Narceus_americanus'
+		'Cambala_annulata'
+		'Cylindroiulus_sp'
+		'Crussolum_spp'
+		'Scutigerina_weberi'
+		'Sphendononema_guildingii'
+		'Scutigera_coleoptrata'
+		'Lithobius_forficatus'
+		'Eupolybothrus_cavernicolus'
+		'Anopsobius_giribeti'
+		'Paralamyctes_validus'
+		'Devonobius_delta'
+		'Craterostigmus_tasmanianus'
+		'Craterostigmus_crabilli'
+		'Mazoscolopendra_richardsoni'
+		'Scolopendropsis_bahiensis'
+		'Akymnopellis_chilensis'
+		'Rhysida_longipes'
+		'Alipes_grandidieri'
+		'Cryptops_hortensis'
+		'Theatops_spinicaudus'
+		'Scolopocryptops_sexspinosus'
+		'Newportia_adisi'
+		'Mecistocephalus_guildingii'
+		'Tygarrup_javanicus'
+		'Notiphilides_grandis'
+		'Himantarium_gabrielis'
+		'Stenotaenia_linearis'
+		'Henia_brevis'
+		'Strigamia_maritima'
+		'Hydroschendyla_submarina'
+		'Kachinophilus_pereirai'
+		'Hanseniella_sp'
+		'Scutigerella_sp'
+	;
+END;
+
+
+
+BEGIN CHARACTERS;
+	DIMENSIONS NCHAR=130;
+	FORMAT DATATYPE=STANDARD MISSING=? GAP=- SYMBOLS="012345";
+
+	CHARLABELS
+		 [1] 'Egg tooth on embryonic cuticle of second maxilla'
+		 [2] 'Pattern of segment addition in ontogeny'
+		 [3] 'Fully-formed trunk leg pairs in first post-embryonic/post-pupoid stadium'
+		 [4] 'Brood care'
+		 [5] 'Peripatoid and foetoid stadia guarded by mother'
+		 [6] 'Antenna'
+		 [7] 'Flattened head capsule'
+		 [8] 'Transverse cephalic suture'
+		 [9] 'Fenestrated plate composed of fused transverse tendons of mandibular, mx1, and mx2 segments'
+		 [10] 'Lateral eye'
+		 [11] 'Tömösváry organs'
+		 [12] 'Mandibular glands'
+		 [13] 'Second vesicular gland'
+		 [14] 'Cuticle calcification'
+		 [15] 'Dentition of labral midpiece / intermediate part'
+		 [16] 'Labral sidepieces / lateral parts divided into a pair of alae by a transverse thickened line'
+		 [17] 'Single transverse seta projecting medially from labral side piece / lateral part'
+		 [18] 'Labral sidepiece / lateral part incised medially'
+		 [19] 'Lateral part of labrum bearing numerous strong, medially directed teeth'
+		 [20] 'A-shaped epipharyngeal support (labral trapezoid)'
+		 [21] 'Arching of border between labral and clypeal part of epipharynx'
+		 [22] 'Bilobate border between labral and clypeal parts of epipharynx'
+		 [23] 'Single row of bottle-shaped glandular openings at border between labral and clypeal parts of epipharynx'
+		 [24] 'Single row of bullet-shaped sensilla at proximal margin of field of branching spines at border between labral and clypeal parts of epipharynx'
+		 [25] 'Sensillar field(s) on medial clypeal part of epipharynx'
+		 [26] 'Elongate, figure-eight shaped group of two smooth scales surrounding each sensillum on clypeal part of epipharynx'
+		 [27] 'Lateral cluster of spear-shaped sensilla with inflated bases on clypeal part of epiphrynx'
+		 [28] 'Spear-shaped sensilla on proximal part of hypopharynx'
+		 [29] 'Stilus'
+		 [30] 'Four sclerites of mandible intersect at cruciform suture'
+		 [31] 'Mandible composed of two sclerites (lamina condylifera only sclerite differentiated from flank of mandible)'
+		 [32] 'Wide membranous band between sclerites of mandible, Haarpolster on a discrete sclerite'
+		 [33] 'Pectinate lamellae on mandible'
+		 [34] 'Dentate lamellae on mandible'
+		 [35] 'Field of fan bristles expanded onto lamina dentifera of mandible'
+		 [36] 'Molar plate'
+		 [37] 'First maxilla coalesced with sternal intermaxillary plate'
+		 [38] 'Median suture on first maxillary coxosternite'
+		 [39] 'Maxillary organ'
+		 [40] 'Maxillary nephridia'
+		 [41] 'Limbless postmaxillary segment'
+		 [42] 'Second maxilla'
+		 [43] 'Forcipule with fang and venom gland'
+		 [44] 'Coxalplatten (forcipular coxosternal apodemes)'
+		 [45] 'Tarsungulum on forcipular/first trunk segment'
+		 [46] 'Spine comb on tarsus of forcipule/first trunk leg'
+		 [47] 'Basal node on forcipular tarsus/tarsungulum'
+		 [48] 'Basal node on forcipular femur'
+		 [49] 'Basal node on forcipular trochanteroprefemur'
+		 [50] 'Hinge between articles of forcipular telopodite'
+		 [51] 'Spine bristle on inner edge of forcipular trochanteroprefemur opposed to four spine bristles on each coxal margin'
+		 [52] 'Tergite of forcipular segment'
+		 [53] 'Intraspecific variability in number of leg pairs'
+		 [54] 'Body segments fused into diplosegments'
+		 [55] 'Fusion of tergites, pleurites and sternites'
+		 [56] '"Special heterotergy" (alternating long and short tergites, with reversal of lengths between seventh and eighth walking leg-bearing segments)'
+		 [57] 'Overlap between tergite 1 and head shield'
+		 [58] 'Second tergite much larger than the following ones'
+		 [59] 'Single large tergal plate over trunk segments 7-9'
+		 [60] 'Intercalary sclerites'
+		 [61] 'Paramedian sutures or grooves on tergum (Längsnähten)'
+		 [62] 'Crescentic sulci on most trunk tergites'
+		 [63] 'Tergite margination'
+		 [64] 'Tergite projections'
+		 [65] 'Large unpaired tergal spines associated with spine bristles, aligned longitudinally on midline'
+		 [66] 'Tergal spicula (hairs)'
+		 [67] 'Ultimate tergite with longitudinal median suture'
+		 [68] 'Anterior trunk sternites with rhachis (apodeme corresponding to mid-longitudinal sulcus)'
+		 [69] 'Complete sternal paramedian sutures along length of trunk'
+		 [70] 'Paired sternal paramedian pores with valves'
+		 [71] 'Sternal pore areas/sternal glands'
+		 [72] 'Endosternite'
+		 [73] 'Short, dense setae concentrated on posterior part of sternite of ultimate leg-bearing segment and inner part of ultimate leg coxa'
+		 [74] 'Leg pentagonal in cross-section, with marginal spines on the angles'
+		 [75] 'Proliferation of telopodal glands on posterior legs'
+		 [76] 'Socketed spurs D/V, a/m/p on distal extremities of podomeres'
+		 [77] 'Distal spinose projections on tibiae (tooth-like process on lateral side of at least tibiae 1-11)'
+		 [78] 'Bipartite division of tarsi of anterior series of trunk legs'
+		 [79] 'Tarsi divided into many joints'
+		 [80] 'Tarsal spurs'
+		 [81] 'Tarsus 1 with pair of terminal spurs'
+		 [82] 'Tarsal papillae and resilient sole hairs'
+		 [83] 'Coxal pouches on legs'
+		 [84] 'Ultimate leg-bearing segment a complete cylinder'
+		 [85] 'Coxopleurite'
+		 [86] 'Ultimate leg thickened in males'
+		 [87] 'Heavily sclerotised, forcipulate ultimate legs'
+		 [88] 'Ultimate leg trochanter'
+		 [89] 'Trochanter of ultimate and penultimate legs with ventral spine'
+		 [90] 'Ultimate leg distomedial prefemoral process'
+		 [91] 'Ultimate leg pretarsus'
+		 [92] 'Antenna and leg regeneration'
+		 [93] 'Relationship of sternal and lateral longitudinal muscles'
+		 [94] 'Position of spiracle(s)'
+		 [95] 'Cribriform spiracles with floor of atrium raised into humps'
+		 [96] 'Spiracle with atrium divided by flapped valves'
+		 [97] 'stigmatic plates'
+		 [98] 'Longitudinal and transverse connections between segmental tracheal branches'
+		 [99] 'Chiasmata'
+		 [100] 'Foregut with differentiated gizzard with plicate walls'
+		 [101] 'Posterior part of foregut organised as a sieve with stiff, anteriorly directed projections'
+		 [102] 'Intestine shape'
+		 [103] 'Malpighian tubules formed as endodermal extensions of midgut'
+		 [104] 'Malpighian tubules formed as ectodermal extensions of hindgut'
+		 [105] 'Lateral defense glands'
+		 [106] 'Unpaired median testis'
+		 [107] 'Testes differentiated into macrotestis with ampulla and microtestis'
+		 [108] 'Lateral testicular vesicles linked by a central, posteriorly extended deferens duct'
+		 [109] 'Female gonopod on first genital segment'
+		 [110] 'Position of male gonopore'
+		 [111] 'Bivalved anogenital capsule'
+		 [112] 'Anal organs'
+		 [113] 'Coxal organs'
+		 [114] 'Spermatophore web produced by Spinngriffel on first genital segment of male'
+		 [115] 'Bean-shaped spermatophore with tough, multi-layered wall'
+		 [116] 'Ventral invagination in spermatophore'
+		 [117] 'Sperm dimorphism'
+		 [118] 'Sperm flagellum'
+		 [119] 'Spiral ridge on nucleus of sperm'
+		 [120] 'Sperm nucleus with machette of microtubules'
+		 [121] 'Pseudoperforatorium'
+		 [122] 'Spermathecae formed by paired pockets in mouth cavity'
+		 [123] 'Modified leg(s) in male on seventh and/or eight trunk segment(s)'
+		 [124] 'Leg 8 in adult males'
+		 [125] 'Leg 9 in adult males'
+		 [126] 'Leg 10 in adult males'
+		 [127] 'Posterior male leg pair as telopods with inner horns'
+		 [128] 'Terminal spinnerets on margin of epiproct, silk produced from setal sockets'
+		 [129] 'Pre-anal segment with trichobothria bearing a long sensory seta'
+		 [130] 'Telopodite on first maxilla'
+	;
+
+	STATELABELS
+		1
+		'absent'
+		'present'
+		,
+		2
+		'hemianamorphosis'
+		'euanamorphosis'
+		'teloanamorphosis'
+		'epimorphosis'
+		,
+		3
+		'Absent'
+		'Present'
+		,
+		4
+		'absent'
+		'female (male in Brachycybe) bends ventrally around eggs'
+		'female bends dorsally around eggs'
+		'maternal brood sac on ventral side of opisthosoma'
+		,
+		5
+		'absent'
+		'present'
+		,
+		6
+		'Absent'
+		'Present'
+		,
+		7
+		'head capsule domed'
+		'flattened, with head bent posterior to the clypeus'
+		,
+		8
+		'absent'
+		'present (frontal line or frontal sulcus)'
+		'present, divided near lateral margin into antenocellar suture'
+		,
+		9
+		'absent'
+		'present'
+		,
+		10
+		'Absent'
+		'Present'
+		,
+		11
+		'absent'
+		'present'
+		,
+		12
+		'restricted to hypopharyngeal region'
+		'extended back into trunk'
+		,
+		13
+		'absent'
+		'present'
+		,
+		14
+		'absent'
+		'present'
+		,
+		15
+		'undefined midpiece (median tooth / teeth lacking)'
+		'single strong tooth'
+		'three teeth'
+		'several (>3) small teeth'
+		,
+		16
+		'side pieces undivided'
+		'alae definied by transverse thickened line'
+		,
+		17
+		'absent'
+		'present'
+		,
+		18
+		'not incised'
+		'incised'
+		,
+		19
+		'absent'
+		'present'
+		,
+		20
+		'absent'
+		'present'
+		,
+		21
+		'subtransverse or gently arched distally'
+		'strongly arched distally'
+		,
+		22
+		'absent'
+		'present'
+		,
+		23
+		'absent'
+		'present'
+		,
+		24
+		'absent'
+		'present'
+		,
+		25
+		'medial cluster of sensilla proximally, near mouth opening'
+		'ovoid or crescentic fields of sensilla laterally'
+		'large field of sensilla across medial clypeal part of epipharynx, separated from spine field of a substantial expanse that bears scattered pores'
+		'band of sensilla medially, immediately proximal to spine field'
+		'lenticular field of sensilla immediately proximal to spine field'
+		,
+		26
+		'absent'
+		'present'
+		,
+		27
+		'absent'
+		'present'
+		,
+		28
+		'absent'
+		'present'
+		,
+		29
+		'absent'
+		'present'
+		,
+		30
+		'absent'
+		'present'
+		,
+		31
+		'absent'
+		'present'
+		,
+		32
+		'absent'
+		'present'
+		,
+		33
+		'Absent'
+		'Present'
+		,
+		34
+		'absent'
+		'present'
+		,
+		35
+		'absent'
+		'present'
+		,
+		36
+		'Absent'
+		'Present'
+		,
+		37
+		'absent'
+		'present, with unfused stipital and intermaxillary components'
+		'mental elements of gnathochilarium consolidated'
+		,
+		38
+		'coxae medially coalesced, separated by median suture'
+		'coxae fused, without median suture'
+		,
+		39
+		'absent'
+		'present'
+		,
+		40
+		'paired'
+		'fused'
+		'absent'
+		,
+		41
+		'limbs present'
+		'limbs absent'
+		,
+		42
+		'Absent'
+		'Present'
+		,
+		43
+		'absent'
+		'present (fossils coded based on fang)'
+		,
+		44
+		'absent'
+		'present'
+		,
+		45
+		'separate tarsus and pretarsus'
+		'tarsus and pretarsus fused'
+		,
+		46
+		'absent'
+		'present'
+		,
+		47
+		'absent (coded for first trunk leg in Progoneata)'
+		'present'
+		,
+		48
+		'absent (coded for first trunk leg in Progoneata)'
+		'present'
+		,
+		49
+		'absent (coded for first trunk leg in Progoneata)'
+		'present'
+		,
+		50
+		'between prefemur/trochanteroprefemur and femur'
+		'between trochanteroprefemur and tibia'
+		'between trochanteroprefemur and tarsungulum'
+		,
+		51
+		'absent'
+		'present'
+		,
+		52
+		'separate tergite'
+		'separate tergite lacking, fused to next posterior segment'
+		,
+		53
+		'constant number of leg pairs'
+		'variable number of leg pairs'
+		,
+		54
+		'absent'
+		'present'
+		,
+		55
+		'absent (free pleurites and sternites)'
+		'pleurotergites (pleurae fused to tergites, with free sternites)'
+		'complete body rings (tergites, pleurites and sternites fused)'
+		,
+		56
+		'absent'
+		'present'
+		,
+		57
+		'head shield overlaps tergite 1'
+		'tergite 1 overlaps head shield'
+		,
+		58
+		'absent'
+		'present'
+		,
+		59
+		'separate tergites'
+		'single tergite'
+		,
+		60
+		'absent, weakly sclerotised, or small intercalary tergites (pretergites) and sternites'
+		'strongly developed intercalary tergites and sternites'
+		,
+		61
+		'absent'
+		'present'
+		,
+		62
+		'absent'
+		'present'
+		,
+		63
+		'absent or on last tergite only'
+		'on most or all tergites'
+		,
+		64
+		'absent on all tergites'
+		'present on at least TT11 and 13'
+		,
+		65
+		'absent'
+		'present'
+		,
+		66
+		'absent'
+		'present'
+		,
+		67
+		'absent'
+		'present'
+		,
+		68
+		'absent'
+		'present'
+		,
+		69
+		'absent or incomplete'
+		'complete'
+		,
+		70
+		'absent'
+		'present'
+		,
+		71
+		'absent in at least female'
+		'present in both sexes'
+		,
+		72
+		'absent'
+		'present'
+		,
+		73
+		'absent'
+		'present'
+		,
+		74
+		'absent'
+		'present'
+		,
+		75
+		'absent'
+		'present'
+		,
+		76
+		'absent'
+		'present'
+		,
+		77
+		'absent'
+		'present'
+		,
+		78
+		'absent'
+		'present'
+		,
+		79
+		'tarsi undivided or bisegmented'
+		'tarsus flagelliform, with many joints'
+		,
+		80
+		'absent'
+		'present'
+		,
+		81
+		'absent'
+		'present'
+		,
+		82
+		'absent'
+		'present'
+		,
+		83
+		'absent'
+		'present'
+		,
+		84
+		'absent'
+		'present'
+		,
+		85
+		'Absent'
+		'Present'
+		,
+		86
+		'inconspicuous sexual dimorphism with respect to proportions of ultimate leg'
+		'present'
+		,
+		87
+		'absent'
+		'present'
+		,
+		88
+		'present'
+		'minute or absent'
+		,
+		89
+		'absent'
+		'present'
+		,
+		90
+		'absent'
+		'present'
+		,
+		91
+		'claw'
+		'short, slender spine'
+		'tubercle'
+		'absent'
+		,
+		92
+		'present'
+		'absent'
+		,
+		93
+		'united sternal and lateral longitudinal muscles'
+		'separate sternal and lateral longitudinal muscles, with separate segmental tendons'
+		,
+		94
+		'pleural'
+		'dorsal opening on tergum'
+		'sternal, at base of legs, with tracheal pouch serving as apodeme'
+		'single spiracle, opening on head'
+		'single spiracle on opisthomsomal segment 2'
+		,
+		95
+		'absent'
+		'present'
+		,
+		96
+		'valves absent'
+		'valves present'
+		,
+		97
+		'Absent'
+		'Present'
+		,
+		98
+		'absent'
+		'present'
+		,
+		99
+		'absent'
+		'present'
+		,
+		100
+		'absent'
+		'present'
+		,
+		101
+		'absent'
+		'present'
+		,
+		102
+		'straight tube'
+		'N-shaped, bent twice'
+		,
+		103
+		'absent'
+		'present'
+		,
+		104
+		'absent'
+		'present'
+		,
+		105
+		'absent'
+		'present'
+		,
+		106
+		'symmetrically paired testis'
+		'one testis minute, undifferentiated'
+		'unpaired testis'
+		,
+		107
+		'present'
+		'absent'
+		,
+		108
+		'absent'
+		'present'
+		,
+		109
+		'absent'
+		'present'
+		,
+		110
+		'non-opisthogoneate'
+		'opisthogoneate'
+		,
+		111
+		'absent'
+		'present'
+		,
+		112
+		'absent'
+		'present through ontogeny'
+		'present only in juveniles'
+		,
+		113
+		'absent'
+		'present'
+		,
+		114
+		'absent'
+		'present'
+		,
+		115
+		'absent'
+		'present'
+		,
+		116
+		'absent'
+		'present'
+		,
+		117
+		'absent'
+		'microsperm and macrosperm present'
+		,
+		118
+		'absent'
+		'present'
+		,
+		119
+		'absent'
+		'present'
+		,
+		120
+		'absent'
+		'present'
+		,
+		121
+		'absent'
+		'present'
+		,
+		122
+		'absent'
+		'present'
+		,
+		123
+		'absent'
+		'present'
+		,
+		124
+		'walking leg (unmodified)'
+		'accessory gonopod'
+		'functional gonopod'
+		,
+		125
+		'walking leg (unmodified)'
+		'accessory gonopod'
+		'functional gonopod'
+		,
+		126
+		'walking leg (unmodified)'
+		'accessory gonopod'
+		'functional gonopod'
+		,
+		127
+		'absent'
+		'present'
+		,
+		128
+		'absent'
+		'present'
+		,
+		129
+		'absent'
+		'present'
+		,
+		130
+		'Absent'
+		'Present'
+
+	;
+
+	MATRIX
+	'Eudigraphis_taiwanensis'		00100100?11??0000000?????????00011011?0?100?000000000100?00000?000000000000001000010000?00??02001000?0010???000000???????000000000
+	'Glomeris_marginata'		00100100011??11000?0?????????00011?12?00100?000000000100?10000?0000000000000000000000?0??0??02001100?1010???0000000000000000001000
+	'Cyliosoma_sp'		?0?00100011??1100000?????????00011012?0?100?000000000100?10000?0000000000000000000000?0?00???200110??1010???000000??00000000001000
+	'Glomeridesmus_sp'		?0?00100?01??1100??0?????????00011012?0?100?000000000100?00000?0000000000000000000100?0??0???2?0110??1010???00000????????000001000
+	'Cowiedesmus_eroticopodus'		?????10??????1????????????????????????????0????????0?110?000???00????1???0?00?000???????????????1?????????????????????????1000????
+	'Archidesmus_macnicoli'		?????10??1???1??????????????????????????100??????000?110?0000??00????1???0?000000???0?0??????2??1?????????????0???????????10020??0
+	'Petaserpes_sp'		?1110100?10??1000??0????????????????2?0?100?00000000?100?00000?0000000000000000000100?0??0???2?0100??0011???000000???????010120000
+	'Brachycybe_lecontii'		?1110100?00??1000??0??????????0011?12?0?100?00000000?110?00000?0000000000000000000100?0??0???2?0100??0011???000000???????010120000
+	'Pseudopolydesmus_sp'		?2100100001??1200?00?????????00011?12?0?100?000000000120?00000?0000000000000000000000?0?00??02001000?0011???000000??00000012000100
+	'Prostemmiulus_sp'		?1?00100?10??1200??0?????????00011?12?0?100?00000000?110?00000?0000000000000000000100?0??0???2?0100??0011???000000???????012?00100
+	'Abacion_magnum'		??100100?11??1200??0???????????01??12?0?100?00000000?110?00000?0000000000000000000100?0??0???2?0100??0011???000000???????012000100
+	'Cleidogona_sp'		?2100100?11??1200??0???????????01??12?0?100?000000000110?00000?0000000000000000000100?0??0???2?0100??0011???000000???????012200100
+	'Gaspestria_genselorum'		?????10??????1???????????????????????????00????????0?120?00000?00????????0?00?00??????0?????????????????1?????????????????????0???
+	'Narceus_americanus'		01100100010??1200?00?????????00011?12?00100?000000001120?00000?0000000000000000000000?0?00??02001000?0011???000000??00001011200000
+	'Cambala_annulata'		?1?00100?10??1200??0???????????01??12?0?100?00000000?120?00000?0000000?00000000000000?0??0???2?0100??0011????00000???????012100000
+	'Cylindroiulus_sp'		?1100100010??1200?00?????????00011?12?00100?000000001120?00000?0000000000000000000000?0?0???02001000?0011???000000??00001011200000
+	'Crussolum_spp'		?????1???????0????????????????????????????1????0000??????????????????????1?0001000????????????????????????????????????????????????
+	'Scutigerina_weberi'		?0?00102111??01000010000000000011101001?01100100001000010010000000000000010001101100100000300100000??0010???110000???????000000001
+	'Sphendononema_guildingii'		?0?00101111??01000010000000000011101001?01100100001000010010000011000000010001101100100000300100000??0010???110000???????000000001
+	'Scutigera_coleoptrata'		1010010111101010000100000000000111010011011001000010000100100000110000000100011011001000003001000000000100001100000011100000000001
+	'Lithobius_forficatus'		1010011201110010110000100000001011000001011110000000000100000011000000000011010000001000000000000000000102101102110011100000000001
+	'Eupolybothrus_cavernicolus'		?0?00112011??01011000010000?00100100000?01111000000000010000001100000000001101000000100000000000000?00010???110211???????000000001
+	'Anopsobius_giribeti'		?0100112001??01010000010000000101100000?01111000000000010000001000000000000010000000100000000000000??0010100110111???????000000001
+	'Paralamyctes_validus'		?0?00112011??01010000010000000101100000?01111000000000010000001100000000000011000000100000000000000000010???110111???????000000001
+	'Devonobius_delta'		?????111?00??0?0??0??????????????0??0???011110100000?001?00?000000??0001?0?001000????0???????0??0???????????????1?????????0???????
+	'Craterostigmus_tasmanianus'		?0110112011110300000??0???000010?1000002011110000000000100000000000000000000000100011000100?100000000001021101111100?1100000000001
+	'Craterostigmus_crabilli'		?????112011??0300000????????0010?100000?011110000000000100000000000000000000000100011000100?1000000??0010???011111???????000000001
+	'Mazoscolopendra_richardsoni'		?????11??????0???????????????????????????11?10?002010001?00????00????????0?0??0????01?0??0????????????????????0?1?????????00000???
+	'Scolopendropsis_bahiensis'		?30??110010??01000000001210001001110000?0111100012011001100010100010100000000101000010110100100101010001????010011???????000000001
+	'Akymnopellis_chilensis'		?301?110010??01000000001210001001110000?01111000120100010000101000101000000001000000100101001001010100010???010011???????000000001
+	'Rhysida_longipes'		?3011110010??01000001001110001001110000?0111100012010001100010100000000000000101000010010000101001010001021101001111?????000000001
+	'Alipes_grandidieri'		?3011110010??01000001001110001001110000?01111000120100011000101000000000000001010000100100301010010100010???010011???????000000001
+	'Cryptops_hortensis'		13011110000??01000000001400001001100000201111000010100011001110000000001000000000000100100001000010110010???01001110?1100000000001
+	'Theatops_spinicaudus'		?3011110000??01000000001300001001100000?01111000120100010001100000100000000000010000101100001000010110010???010011???????000000001
+	'Scolopocryptops_sexspinosus'		?3011110000??01000000001300001001110000?0111100012010001000?101000000000000000010000100100001000010110010???010011???????000000001
+	'Newportia_adisi'		?3011110000??01000000001300001001100000?01111000020100010001110000000001000001000000100100301000010110010???010011???????000000001
+	'Mecistocephalus_guildingii'		?30??1110001001100000000?00010001000000201111001120000000001100000010001100000000000110000111000011000010211110111???????000000001
+	'Tygarrup_javanicus'		?30??111000??0110000??????0010001000000?01111000120000000001100000010001100000000000100000111000011000010???110111???????000000001
+	'Notiphilides_grandis'		?30??110000??03000001000?01100001000010?011110000200100000010000000000100000000000001100003110000110?0010???110001???????000000001
+	'Himantarium_gabrielis'		?30??111000??03000101000?01000001000000?01111000020010000001100000000010000000000000110000311000011??0010211110011??01100000000001
+	'Stenotaenia_linearis'		?3021110000??03000001100?00000001000010?01111000020010000001100000000010000000000000100000011000011000010???110111???1??0000000001
+	'Henia_brevis'		?30??110000??030000011??????00001000010?01111000020010000001000000000010000000000000110000(03)11000011??0010???110111???????000000001
+	'Strigamia_maritima'		130211100001003000001100?00000001000010201111010020010000001000000000010000000000000110000011000011000010211110111??01100000000001
+	'Hydroschendyla_submarina'		?30??110000??03000101000?01100001000010?01111000020010000001100000000010000000000000110000311000011000010???110011???????000000001
+	'Kachinophilus_pereirai'		?????110?00??0?????????????????????0????011?1010120010000001?0000000001000?0000000001000000?????0????????????10?1?????????00000001
+	'Hanseniella_sp'		00??0100?01??0000000??????0??0?001010?0?000?000000000000?00?0000000000000000000000?0000?00???3000????0010???00000000?????100000010
+	'Scutigerella_sp'		?0??0100?01??0000000??????0??0?001010?0?000?000000000000?00?0000000000000000000000?0000?00???3000????0010???0000000011000100000010
+	;
+END;
+
+BEGIN ASSUMPTIONS;
+TYPESET * UNTITLED = unord: 1 - 36 38 - 54 56 - 130, ord: 37 55;
+END;
