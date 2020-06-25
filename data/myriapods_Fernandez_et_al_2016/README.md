@@ -8,4 +8,3 @@
  + [fernandez_et_al_2016_primaries_only.nex](fernandez_et_al_2016_primaries_only.nex):  The dataset restricted to the primary characters only.
  + [fernandez_et_al_2016_type.txt](fernandez_et_al_2016_type.txt):  The text file that specifies primary characters, secondary characters and which primaries they depend.
  + [fernandez_paup_search_primaries_only.tre](fernandez_paup_search_primaries_only.tre): The 34,560 best scoring trees from a PAUP search, using primary characters only.
- + [fernandez_paup_search.tre](fernandez_paup_search.tre): The 2,940 best scoring trees from a PAUP search with the full matrix.
