@@ -1,6 +1,6 @@
 # HSJ: Data #
 
-The datasets consist of a character matrix and an associated file of character types indicating which characters are primary, which are secondary, and for the secondary characters which character is their controlling primary.
+The datasets consist of a character matrix and an associated file of character types indicating which characters are primary, which are secondary, and for the secondary characters which character is their controlling primary.  Controlling primaries are coded as binary with '0' for absent and '1' for present.
 
 
 + [Brachiopods](brachiopods_Cusack_et_al_1999):  A moderately-sized study of fossil brachiopods \([Cusack et al 1999](https://doi.org/10.1111/1475-4983.00098)\).  Originally coded with a mixture of non-additive binary and composite coding, it has been recoded using hierarchical reductive coding for this study.

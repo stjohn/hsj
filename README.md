@@ -2,6 +2,8 @@
 
 ![Image](examples/comp_4taxaCROPPED.jpg)
 
+<sup><sup>Silhouettes modified from [phylopic.org](phylopic.org) (Scutigerella immaculata by  Janssen, Prpic, Damen, & Keesey; Lithobius forficatus by B. Lang).</sup></support>
+
 Includes code, examples and some data files for computing a scalable disparity metric for datasets with inapplicable characters and scoring phylogenetic trees under the optimality criteria for phylogenetic trees.
 
 ## What's here: ##
