@@ -13,11 +13,15 @@ We build on the extendible frameworks of [Brazeau, Guillerme, and Smith, 2019.](
 
 [Maddison, 1993](https://doi.org/10.1093/sysbio/42.4.576) considered the situation where some taxa have tails, some do not, and how do you include that information in the analysis.  We start with a simple example of antennae and then discuss the Maddison example.
 
+&nbsp;
+
 ### Antennae Example ###
+
+&nbsp;
 
 ![Image](comp_4taxaCROPPED.jpg)
 
-<sup><sup>Silhouettes modified from [phylopic.org](phylopic.org) (Scutigerella immaculata by  Janssen, Prpic, Damen, & Keesey; Lithobius forficatus by B. Lang).</sup></support>
+<sup><sup>Silhouettes modified from [phylopic.org](phylopic.org) (Scutigerella immaculata by  Janssen, Prpic, Damen, & Keesey; Lithobius forficatus by B. Lang).</sup></sup>
 
 We start with a simpler example (pictured above).  The  matrix  has four taxa: two (t1 and t2) with red antennae and two (t3 and t4) with blue antennae.  Taxa t1 and t4 represent Symphyla myriapods, and t2 and t3 represent Chilopoda myriapods. The first character in the matrix indicates the presence or absence of antennae.  The next four characters, in gray italics, describe the antennae.  If antennae are not present (i.e., the first character is coded as absent or '0'), then these characters are inapplicable in the analysis.  For this example, antennae are coded as present for all the taxa.
 
@@ -28,12 +32,15 @@ The secondary characters have an additional 4 (and 8, resp.) changes for the lef
 To include secondary characters in the analysis, we scale the contribution of each associated primary by their secondary character contribution, scaled by a parameter, &alpha;, ranging from 0 to 1.  We use the HSJ disparity measure in the examples below, but other disparity measures can be used as well.  For the HSJ measure, when &alpha;=0, there is no contribution of the secondaries, and the scores are identical to the Fitch algorithm on the primary characters.  When
 &alpha;=0.5, the contribution is 50% of the fraction of the secondaries that disagree.   So, the left-hand tree has a score of 6 + &alpha;*(4/4) = 6 + 0.5*1 = 6.5.  The right hand tree has a score of 3 + &alpha;*(4/4+4/4) = 4.  If &alpha;=1.0, then the scores become 7 and 5.
 
-
+&nbsp;
 
 ### Maddison's Red/Blue Tail Example ###
+&nbsp;
 
+![Image](redBlueTree1.png)
+&nbsp;
 
-Describe red-tail/blue-tail examples. (maybe include images from SOM?).  Include data files and scripts in this directory.
+[Maddison, 1993](https://doi.org/10.1093/sysbio/42.4.576) examined inapplicable characters, describing a hypothetical situation where the first character is the presence or absence of a tail and includes additional characters that describe the tail, if present.  
 
 + Work through the example of Maddison.
 

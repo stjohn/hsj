@@ -36,7 +36,7 @@ madTyp <- read.table('type2-4.txt',header=TRUE)
 ```
 Let's generate a random tree using the phyDat object:
 ```
-firstTree <- firstTree <- RandomTree(madPhy)
+firstTree <- RandomTree(madPhy)
 ```
 To score the tree with &alpha; = 0 (no contribution of secondaries to the score):
 ```
