@@ -42,6 +42,4 @@ To include secondary characters in the analysis, we scale the contribution of ea
 
 [Maddison, 1993](https://doi.org/10.1093/sysbio/42.4.576) examined inapplicable characters, describing a hypothetical situation where the first character is the presence or absence of a tail and includes additional characters that describe the tail, if present.  
 
-+ Work through the example of Maddison.
-
-+ Walk through scoring a tree in R.
+For example, if we have the matrix, on the left, with a controlling primary, two secondaries, and four additional primaries, an optimal internal labeling will have the secondary characters changing states between at two places in the tree (between t3 and the parent of t1 and t2, as well as, between t12 and the parent of t13 and t14).  Similarly, an optimal internal labeling will have the primary characters change twice for first primary and once for the remaining ones.  This yields a parsimony score on the primary characters only of 6 and with the inclusion of secondary characters (with inapplicables treated as missing data) of 10.  The software allows scaling of the contributions of the secondary characters (details of this example are in [code](code/README.md)).  If the scaling parameter, &alpha;, is 0.5, then the contribution of the secondary characters is 50% and the score for the tree on the left is 6+&alpha;(2/2+2/2) = 7.
