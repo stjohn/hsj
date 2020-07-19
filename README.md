@@ -23,7 +23,7 @@ and the Claddis R package:
 
 If you use the tree scoring code, please reference:
 
-+ Hopkins, M.J. and K. St. John.  2020. Incorporating Inapplicable Characters into Phylogenetic Analysis. In preparation.
++ Hopkins, M.J. and K. St. John.  2020. Incorporating Inapplicable Characters into Phylogenetic Analysis. Submitted.
 
 It is built on the extendible framework of Brazeau et al. 2019 and uses the R packages Claddis, TreeTools, Phangorn, TreeSearch and R scripts for the HSJ approach:
 
