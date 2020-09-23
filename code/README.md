@@ -27,12 +27,12 @@ source('hsjScorer.R')
 ```
 To run the tree scorer, you need a tree, characters for that tree, and how the character are related.   Using the character matrix [matrix2-4.nex](../examples/matrix2-4.nex) and types [type2-4.txt](../examples/type2-4.txt) from the [examples](../examples), we can set up the data structures.  First, we use the nexus file with the character matrix to create PhyDat and Claddis objects:
 ```
-madPhy <- ReadAsPhyDat('matrix2-4.nex')
-madDat <- ReadMorphNexus('matrix2-4.nex')
+madPhy <- ReadAsPhyDat('../examples/matrix2-4.nex')
+madDat <- ReadMorphNexus('../examples/matrix2-4.nex')
 ```
 We also need to read in the description of the types (which are primary, which are secondary, and the dependencies between them):
 ```
-madTyp <- read.table('type2-4.txt',header=TRUE)
+madTyp <- read.table('../examples/type2-4.txt', header=TRUE)
 ```
 Let's generate a random tree using the phyDat object:
 ```

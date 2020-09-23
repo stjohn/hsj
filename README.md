@@ -4,7 +4,7 @@
 
 <sup><sup>Silhouettes modified from [phylopic.org](phylopic.org) (Scutigerella immaculata by  Janssen, Prpic, Damen, & Keesey; Lithobius forficatus by B. Lang).</sup></sup>
 
-Includes code, examples and some data files for computing a scalable disparity metric for datasets with inapplicable characters and scoring phylogenetic trees under the optimality criteria for phylogenetic trees.
+Includes code, examples and some data files for computing a scalable disparity metric for datasets with hierarchical characters and scoring phylogenetic trees under the optimality criteria for phylogenetic trees.
 
 ## What's here: ##
 
@@ -23,7 +23,7 @@ and the Claddis R package:
 
 If you use the tree scoring code, please reference:
 
-+ Hopkins, M.J. and K. St. John.  2020. Incorporating Inapplicable Characters into Phylogenetic Analysis. Submitted.
++ Hopkins, M.J. and K. St. John.  2020. Incorporating Hierarchical Characters into Phylogenetic Analysis. Submitted.
 
 It is built on the extendible framework of Brazeau et al. 2019 and uses the R packages Claddis, TreeTools, Phangorn, TreeSearch and R scripts for the HSJ approach:
 

@@ -5,56 +5,67 @@ library(phangorn)
 library(Claddis)
 library(TreeTools)
 
-setwd("~/Desktop/maddison-example")
-source('~/github/phangs/code/phangsScorer7.R')
-source('~/github/phangs/code/dissimilarity_functions.R')
+source('../code/hsjScorer.R')
+source('../code/dissimilarity_functions.R')
 
-# ####
-claddisObj<-ReadMorphNexus('matrix2-4_fixed.nex')
-typesObj<-read.table('type2-4.txt')
-colnames(typesObj)<-c('Char','Type','Sub')
+##### First example:
+#Read in the data files:
+mor2.4 <- ReadMorphNexus('matrix2-4.nex')
+typ2.4 <- read.table('type2-4.txt')
+phy2.4 <- ReadAsPhyDat('matrix2-4.nex')
+# Traditional Fitch algorithm with inapplicable characters treated as missing:
+phy2.4fitch <- ReadAsPhyDat('matrix2-4_prepped_for_fitch.nex')
+# Some sample trees:
+trees2.4 <- read.nexus('matrix2-4.nex')
+t1 <- tree2.4[[1]]
 
-phyDatObj<-ReadAsPhyDat('matrix2-4_fixed.nex')
-phyDatObj.fitch<-ReadAsPhyDat('matrix2-4_fitch_fixed.nex')
+#Running traditional Fitch:
+fitch(t1, phy2.4fitch)
+#Running morphy:
+Fitch(t1, phy2.4)
+#Running hsj scorer with alpha = 0.5:
+hsjTS(t1,phy2.4,mor2.4,typ2.4,alpha=0.5)
+#Scoring for different values of alpha:
+hsjTS(t1,phy2.4,mor2.4,typ2.4,alpha=0.1)
+hsjTS(t1,phy2.4,mor2.4,typ2.4,alpha=1.0)
 
-mydata<-phangs(phyDatObj = phyDatObj,claddisObj = claddisObj,typesObj = typesObj, alpha = 0.5)
-tree<-read.nexus('matrix2-4_fixed.nex')
-tree.1<-tree[[1]]
-fitch(tree = tree.1, data = phyDatObj.fitch)
-Fitch(tree = tree.1, dataset = phyDatObj)
-hsjScorer(parent = tree.1$edge[,1],child = tree.1$edge[,2],phangsObj = mydata, nTaxa = 14)
+#Repeating for second example tree:
+t2 <- trees2.4[[2]]
+fitch(t2, phy2.4fitch)
+Fitch(t2, phy2.4)
+hsjTS(t2,phy2.4,mor2.4,typ2.4,alpha=0.5)
 
-tree.2<-tree[[2]]
-fitch(tree = tree.2, data = phyDatObj.fitch)
-Fitch(tree = tree.2, dataset = phyDatObj)
-hsjScorer(parent = tree.2$edge[,1],child = tree.2$edge[,2],phangsObj = mydata, nTaxa = 14)
 
-tree.3<-tree[[3]]
-fitch(tree = tree.3, data = phyDatObj.fitch)
-Fitch(tree = tree.3, dataset = phyDatObj)
-hsjScorer(parent = tree.3$edge[,1],child = tree.3$edge[,2],phangsObj = mydata, nTaxa = 14)
+#Repeating for third example tree:
+t3 <- trees2.4[[3]]
+fitch(t3, phy2.4fitch)
+Fitch(t3, phy2.4)
+hsjTS(t3,phy2.4,mor2.4,typ2.4,alpha=0.5)
 
-####
-claddisObj<-ReadMorphNexus('matrix4-3_fixed.nex')
-typesObj<-read.table('type4-3.txt')
-colnames(typesObj)<-c('Char','Type','Sub')
 
-phyDatObj<-ReadAsPhyDat('matrix4-3_fixed.nex')
-phyDatObj.fitch<-ReadAsPhyDat('matrix4-3_fitch_fixed.nex')
 
-mydata<-phangs(phyDatObj = phyDatObj,claddisObj = claddisObj,typesObj = typesObj, alpha = 0.5)
-tree<-read.nexus('matrix4-3_fixed.nex')
-tree.1<-tree[[1]]
-fitch(tree = tree.1, data = phyDatObj.fitch)
-Fitch(tree = tree.1, dataset = phyDatObj)
-hsjScorer(parent = tree.1$edge[,1],child = tree.1$edge[,2],phangsObj = mydata, nTaxa = 14)
+##### Second example:
+#Read in the data files:
+mor4.3 <- ReadMorphNexus('matrix4-3.nex')
+typ4.3 <- read.table('type4-3.txt')
+phy4.3 <- ReadAsPhyDat('matrix4-3.nex')
+phy4.3fitch <- ReadAsPhyDat('matrix4-3_prepped_for_fitch.nex')
+trees4.3 <- read.nexus('matrix4-3.nex')
 
-tree.2<-tree[[2]]
-fitch(tree = tree.2, data = phyDatObj.fitch)
-Fitch(tree = tree.2, dataset = phyDatObj)
-hsjScorer(parent = tree.2$edge[,1],child = tree.2$edge[,2],phangsObj = mydata, nTaxa = 14)
+#Running methods on first tree:
+t1 <- trees4.3[[1]]
+fitch(t1, phy4.3fitch)
+Fitch(t1, phy4.3)
+hsjTS(t1, phy4.3, mor4.3, typ4.3, alpha = 0.5)
 
-tree.3<-tree[[3]]
-fitch(tree = tree.3, data = phyDatObj.fitch)
-Fitch(tree = tree.3, dataset = phyDatObj)
-hsjScorer(parent = tree.3$edge[,1],child = tree.3$edge[,2],phangsObj = mydata, nTaxa = 14)
+#Repeating for second example tree:
+t2 <- trees4.3[[2]]
+fitch(t2, phy4.3fitch)
+Fitch(t2, phy4.3)
+hsjTS(t2, phy4.3, mor4.3, typ4.3, alpha = 0.5)
+
+#Repeating for third example tree:
+t3 <- trees4.3[[3]]
+fitch(t3, phy4.3fitch)
+Fitch(t3, phy4.3)
+hsjTS(t3, phy4.3, mor4.3, typ4.3, alpha = 0.5)
