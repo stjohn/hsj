@@ -18,6 +18,20 @@ library(TreeTools)
 library(Claddis)
 ```
 
+## Data Assumptions: ##
+
+The code assumes that the hierarchical characters are coded using reductive coding sensu Strong & Lipscomb, 1999 and expects as input:
++ tree: a tree in the phylo format (ape)
++ phyObj: a phyDat object with the same taxa as the tree
++ morObj: a Claddis (morph) object on the same taxa as the tree
++ typObj: a table with a row for each character, containing the character number, the character type ('P' for primary, 'S' for secondary), and the dependency (NA for primaries; and the number of the controlling primary for secondaries)
++ alpha: a number between 0 and 1.0.  Default is 0.5.
+
+We assume that the "controlling primaries" are present/absent characters and coded as either "0" (absent) or "1" (present).
+
+
+
+
 ## Sample Code: ##
 
 Assuming the above packages have been loaded, we can source the code files:
@@ -50,3 +64,4 @@ To run a ratchet search starting from that tree with &alpha; = 0.5:
 ```
 hsjRatchet(firstTree, madPhy, madDat, madTyp, alpha = 0.5)
 ```
+(The ratchet will take some time to run.)

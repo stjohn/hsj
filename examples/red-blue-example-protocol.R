@@ -69,3 +69,4 @@ t3 <- trees4.3[[3]]
 fitch(t3, phy4.3fitch)
 Fitch(t3, phy4.3)
 hsjTS(t3, phy4.3, mor4.3, typ4.3, alpha = 0.5)
+
