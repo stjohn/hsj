@@ -57,7 +57,7 @@
 
     BEGIN CHARACTERS;
 	DIMENSIONS NCHAR=200;
-	FORMAT DATATYPE=STANDARD GAP=- MISSING=?SYMBOLS="01234567";
+	FORMAT DATATYPE=STANDARD GAP=G MISSING=? SYMBOLS="-01234567";
 	CHARLABELS
 		 [1] 'Egg tooth on embryonic cuticle of second maxilla'
 		 [2] 'Pattern of segment addition in ontogeny'
@@ -1108,7 +1108,7 @@
 		200
 		'Absent'
 		'Present'
-		
+
 	;
 	MATRIX
 	'Eudigraphistaiwanensis'	0010001?120010000?110001??0000000?????????000101?00101?-?------0?10--------0------?00000000--0100?00-0--00?00000000--00000010000100--00?00??02001000?0000--???0010--?????0---0-000--0????????00000--0000
@@ -1164,4 +1164,3 @@
           BEGIN ASSUMPTIONS;
       TYPESET * UNTITLED = unord: 1 - 53 55 - 80 82 - 95 97 - 103 105 - 200, ord: 54 81 96 104;
       END;
-      
