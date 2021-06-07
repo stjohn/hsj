@@ -9,7 +9,9 @@ source('../code/hsjScorer.R')
 source('../code/dissimilarity_functions.R')
 
 ##### First example:
-#Read in the data files:
+#Read in the data files (using Claddis 0.3.4):
+#If using newer Claddis, use renamed command & file without tree block:
+#  mor2.4 <- read_nexus_matrix('matrix2-4noTrees.nex')
 mor2.4 <- ReadMorphNexus('matrix2-4.nex')
 typ2.4 <- read.table('type2-4.txt')
 phy2.4 <- ReadAsPhyDat('matrix2-4.nex')
@@ -17,7 +19,7 @@ phy2.4 <- ReadAsPhyDat('matrix2-4.nex')
 phy2.4fitch <- ReadAsPhyDat('matrix2-4_prepped_for_fitch.nex')
 # Some sample trees:
 trees2.4 <- read.nexus('matrix2-4.nex')
-t1 <- tree2.4[[1]]
+t1 <- trees2.4[[1]]
 
 #Running traditional Fitch:
 fitch(t1, phy2.4fitch)
@@ -69,4 +71,3 @@ t3 <- trees4.3[[3]]
 fitch(t3, phy4.3fitch)
 Fitch(t3, phy4.3)
 hsjTS(t3, phy4.3, mor4.3, typ4.3, alpha = 0.5)
-

@@ -1,5 +1,5 @@
 # HSJ:  Code #
-This directory contains the following R scripts and uses Claddis 0.3.4 (which was the most recent compiled binary when the associated paper was published and of June 2021).  Claddis has gone through multiple revisions that include renaming functions and variables-- for a version of our scripts that work with Claddis 0.6.3 (requires R 3.6+), see [here](claddis0.6.3/README.md).
+This directory contains the following R scripts and uses Claddis 0.6.3 (requires R 3.6+).  For a version of our scripts that work with the most recent compiled Claddis binary (0.3.4) and was used in [Hopkins and St. John, 2021]( https://doi.org/10.1093/sysbio/syab005), see [here](../README.md).
 
 + `dissimilarity_functions.R`:  functions from [Hopkins and St. John, 2018](https://doi.org/10.1098/rspb.2018.1784) that compute the dissimilarity between two taxa, where the contribution of secondary characters (if present) can be scaled by a parameter alpha.  These functions have been modified from those published in [Hopkins and St. John, 2018](https://doi.org/10.1098/rspb.2018.1784) to accommodate changes in the hierarchical structure of lists expected by the Claddis R package (informally a "Claddis object") [Lloyd 2016](https://doi.org/10.1111/bij.12746).
 
@@ -41,8 +41,10 @@ source('hsjScorer.R')
 To run the tree scorer, you need a tree, characters for that tree, and how the character are related.   Using the character matrix [matrix2-4.nex](../examples/matrix2-4.nex) and types [type2-4.txt](../examples/type2-4.txt) from the [examples](../examples), we can set up the data structures.  First, we use the nexus file with the character matrix to create PhyDat and Claddis objects:
 ```
 madPhy <- ReadAsPhyDat('../examples/matrix2-4.nex')
-madDat <- ReadMorphNexus('../examples/matrix2-4.nex')
+madDat <- read_nexus_matrix('../examples/matrix2-4noTrees.nex')
 ```
+([matrix2-4noTrees.nex](../examples/matrix2-4noTrees.nex) is identical to [matrix2-4.nex](../examples/matrix2-4.nex) with the tree block removed, to avoid issues with additional nexus blocks in read_nexus_matrix().)
+
 We also need to read in the description of the types (which are primary, which are secondary, and the dependencies between them):
 ```
 madTyp <- read.table('../examples/type2-4.txt', header=TRUE)
