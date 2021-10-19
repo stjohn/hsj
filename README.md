@@ -23,7 +23,7 @@ and the Claddis R package:
 
 If you use the tree scoring code, please reference:
 
-+ [Hopkins, M.J. and K. St. John.  2021.]( https://doi.org/10.1093/sysbio/syab005) Incorporating Hierarchical Characters into Phylogenetic Analysis. Accepted to Systematic Biology.
++ [Hopkins, M.J. and K. St. John.  2021.]( https://doi.org/10.1093/sysbio/syab005) Incorporating Hierarchical Characters into Phylogenetic Analysis. Systematic Biology, 70(6):1163-1180.
 
 It is built on the extendible framework of Brazeau et al. 2019 and uses the R packages Claddis, TreeTools, Phangorn, TreeSearch and R scripts for the HSJ approach:
 
