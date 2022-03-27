@@ -21,7 +21,7 @@ We build on the extendible frameworks of [Brazeau, Guillerme, and Smith, 2019.](
 
 ![Image](comp_4taxaCROPPED.jpg)
 
-<sup><sup>Silhouettes modified from [phylopic.org](phylopic.org) (Scutigerella immaculata by  Janssen, Prpic, Damen, & Keesey; Lithobius forficatus by B. Lang).</sup></sup>
+<sup><sup>Silhouettes modified from [phylopic.org](http://phylopic.org) (Scutigerella immaculata by  Janssen, Prpic, Damen, & Keesey; Lithobius forficatus by B. Lang).</sup></sup>
 
 We start with a simpler example (pictured above).  The  matrix  has four taxa: two (t1 and t2) with red antennae and two (t3 and t4) with blue antennae.  Taxa t1 and t4 represent Symphyla myriapods, and t2 and t3 represent Chilopoda myriapods. The first character in the matrix indicates the presence or absence of antennae.  The next four characters, in gray italics, describe the antennae.  If antennae are not present (i.e., the first character is coded as absent or '0'), then these characters are inapplicable in the analysis.  For this example, antennae are coded as present for all the taxa.
 
