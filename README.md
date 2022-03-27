@@ -2,13 +2,13 @@
 
 ![Image](examples/comp_4taxaCROPPED.jpg)
 
-<sup><sup>Silhouettes modified from [phylopic.org](phylopic.org) (Scutigerella immaculata by  Janssen, Prpic, Damen, & Keesey; Lithobius forficatus by B. Lang).</sup></sup>
+<sup><sup>Silhouettes modified from [phylopic.org](http://phylopic.org) (Scutigerella immaculata by  Janssen, Prpic, Damen, & Keesey; Lithobius forficatus by B. Lang).</sup></sup>
 
 Includes code, examples and some data files for computing a scalable disparity metric for datasets with hierarchical characters and scoring phylogenetic trees under the optimality criteria for phylogenetic trees.
 
 ## What's here: ##
 
-The repo is organized into 3 folders, corresponding to [code](code), [illustrative examples](examples), and the [data files](data) used in [Hopkins and St. John, 2021]( https://doi.org/10.1093/sysbio/syab005).
+The repo is organized into 3 folders, corresponding to [code](code), [illustrative examples](examples), and the [data files](data) used in [Hopkins and St. John, 2021](https://doi.org/10.1093/sysbio/syab005).
 
 ## To cite: ##
 
