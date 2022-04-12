@@ -1,0 +1,32 @@
+#NEXUS
+BEGIN DATA;
+DIMENSIONS NTAX=14 NCHAR=7;
+FORMAT SYMBOLS= "01" MISSING=? GAP=-;
+MATRIX
+t1 1111100
+t2 1111101
+t3 1001100
+t4 1001101
+t5 0-1-111
+t6 0-1-111
+t7 0-1-111
+t8 0-0-0-0
+t9 0-0-0-0
+t10 0-0-0-0
+t11 10000--
+t12 10000--
+t13 11100--
+t14 11100--
+;
+END;
+BEGIN ASSUMPTIONS;
+OPTIONS DEFTYPE=unord PolyTcount=MINSTEPS;
+TYPESET * UNTITLED = unord: 1-7;
+WTSET * UNTITLED = 1: 1-7;
+END;
+
+BEGIN TREES;
+TREE * UNTITLED = [&R] (((((((t1,t2),t3),t4),t5),t6),t7),(t8,(t9,(t10,(t11,(t12,(t13,t14)))))));
+TREE * UNTITLED = [&R] (((((((t1,t2),t3),t4),t5),t6),t7),(t8,(t9,(t10,(t13,(t14,(t11,t12)))))));
+TREE * UNTITLED = [&R] (((((t1,t2),t3),t4),(t11,(t12,(t13,t14)))),(((t5,t6),t7),((t9,t10),t8)));
+END;
