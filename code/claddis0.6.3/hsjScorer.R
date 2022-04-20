@@ -68,7 +68,7 @@ hsjScorer <- function(parent, child, phyDat,clad, charTypes, alpha=0.5,
     #Identify the controlling characters & primaries:   
     controlling <-unique(charTypes[which(is.na(charTypes$Sub)=='FALSE'),3])    
     primaries <- which(charTypes$Type=='P')
-    controllingPrimaries <- which(controlling %in% primaries)
+    controllingPrimaries <- controlling[ controlling %in% primaries ]
     
     #Get the "special" characters (i.e. those that are secondary and tertiary)    
     #ADD IN:  allow type levels to also be specified by numbers, i.e. 1 = P, 2 = S, 3 = T
@@ -102,29 +102,30 @@ hsjScorer <- function(parent, child, phyDat,clad, charTypes, alpha=0.5,
         sec <- which(charTypes$Sub == p)
     
         #For each secondary, check if it's controlling:
-        controllingSec <- which(controlling %in% sec)
+        controllingSec <- controlling[ controlling %in% sec ]
         
-        #If so, compute the best labeling for the tertiaries:
+        #If so, compute the best labeling for the tertiary characters:
         for (s in controllingSec) {
-            print(s)
-            tert <- which(charTypes$Sub %in% sec)
+            tert <- which( charTypes$Sub %in% sec)
             restricted <- restrict_clad(clad2,c(s,tert))
             restrictedTypes <- renumber_types(charTypes,c(s,tert))
+            newClad = hsjHelper(tree,restricted, nTaxa, numNodes, alpha, cPrim = TRUE, 
+                      charTypes = restrictedTypes,preset=0)$clad
+            #Add newly fixed tertiary labels to clad object:
+            clad2$matrix_1$matrix[,tert] <- newClad$matrix_1$matrix[,c(2:(length(tert)+1))]
         }
         
-        #Compute the scores for p, its secondaries, & tertiaries:
+        #Find all the tertiary characters that are controlled, eventually, by p:
+        tert <- which(charTypes$Sub %in% controllingSec)
     
-    
-    #ADD IN: Check which are controlling secondaries, and compute contributions of its tertiaries:
-    # For each s in sec, make a list of it's tertiaries to bring along for the analysis:
-    tert <- which(charTypes$Sub %in% sec)
-    #Restrict the character matrix to only the controlling primary and its secondaries & tertiaries:
-    restricted <- restrict_clad(clad2,c(p,sec,tert))
-    #Restrict the types matrix to only the controlling primary and dependents, renumbered:
-    restrictedTypes <- renumber_types(charTypes,c(p,sec,tert))
+        #Restrict the character matrix to only the controlling primary and its secondaries & tertiaries:
+        restricted <- restrict_clad(clad2,c(p,sec,tert))
+        #Restrict the types matrix to only the controlling primary and dependents, renumbered:
+        restrictedTypes <- renumber_types(charTypes,c(p,sec,tert))
 
-    #Compute the score for this restricted matrix and add to the total
-    overallScore <- overallScore + hsjHelper(tree,restricted, nTaxa, numNodes, alpha, cPrim = TRUE, charTypes = restrictedTypes)
+        #Compute the score for this restricted matrix and add to the total
+        overallScore <- overallScore + hsjHelper(tree,restricted, nTaxa, numNodes, alpha, cPrim = TRUE, 
+                                             charTypes = restrictedTypes, preset=length(tert))$score
   }
   
   #Add in the score for primaries that are not controlling (pure Fitch):
@@ -132,7 +133,7 @@ hsjScorer <- function(parent, child, phyDat,clad, charTypes, alpha=0.5,
   {
     restricted <- restrict_clad(clad2,nonC)
     #Compute the score for this restricted matrix and add to the total
-    nonCScore <- hsjHelper(tree,restricted, nTaxa, numNodes, alpha, cPrim=FALSE)
+    nonCScore <- hsjHelper(tree,restricted, nTaxa, numNodes, alpha, cPrim=FALSE)$score
     overallScore <- overallScore + nonCScore
   }
   #Return overall score: 
@@ -155,7 +156,7 @@ restrict_clad <- function(clad,chars)
 }
 
 
-#Restrict the types matrix to only the controlling primary and dependents, renumbered:
+#Restrict & renumber the types matrix to only the controlling primary and dependents:
 # For example:
 #   1 P NA
 #   2 S 1
@@ -167,24 +168,26 @@ restrict_clad <- function(clad,chars)
 #   3 S 1
 #   4 T 3   
 renumber_types <- function(charTypes, chars){
-    rt <- charTypes[chars,]
 
+    rt <- charTypes[chars,]
     #First adjust the sub to reflect the new index
+    rt$Sub[1] <- NA
     for (i in 2:length(rt$Sub))
     {
         rt$Sub[i] <- which(rt$Char == rt$Sub[i] )
     }
     #Then adjust the char to reflect it:
-    for (i in 2:length(rt$Sub))
+    for (i in 1:length(rt$Sub))
     {
         rt$Char[i] <- i
     }
-    
+
+print(rt)    
     as.data.frame(rt)
 }
 
 
-hsjHelper <- function(tree, clad, nTaxa, numNodes, alpha,cPrim=FALSE,charTypes=NULL)
+hsjHelper <- function(tree, clad, nTaxa, numNodes, alpha,cPrim=FALSE,charTypes=NULL,preset=0)
 {
   #Set up running counters:
   numChanges <- 0
@@ -195,11 +198,20 @@ hsjHelper <- function(tree, clad, nTaxa, numNodes, alpha,cPrim=FALSE,charTypes=N
     #Then count differences using the character changes that were stored when the internal
     # nodes were labeled:
     s <- sum(clad$matrix_1$CharChanges)
-    return(sum(clad$matrix_1$CharChanges))  
+    return( list(score=sum(clad$matrix_1$CharChanges),clad=clad))  
   }
   
+  #How to use this to prescore for tertiaries and to score in general?  Sometimes have secondaries in 
+  #   charge-- what will alpha function do if there's no primary?
+  
   #Otherwise, we have a controlling primary (in first position) and secondaries:
-  secondaries <- c(2:length(charTypes[,1]))
+  #   update to also handle tertiary characters:
+  #   By construction, the types are organized as c(p,sec,tert) so the indices  
+  #     for the secondaries range from 2 to length of secondaries, and the 
+  #     possibly preset columns are at the end.
+
+  #Ignore the last preset number of columns since they've been set already (default is 0 have been preset):
+  secondaries <- c(2:(nrow(charTypes) - preset))
   
   #Make a matrix for bookkeeping for each controlling primary (best score if node 
   # is score 0 or scored 1)
@@ -445,7 +457,8 @@ hsjHelper <- function(tree, clad, nTaxa, numNodes, alpha,cPrim=FALSE,charTypes=N
     }
   }
   #print(paste('score for par',par,'is',scores[par,1],scores[par,2],sep=" "))
-  return(score)  
+  #ADD TO THE RETURN:  the clad with the labels computed for the secondaries
+  return( list(score=score,clad=clad) )  
 }
 
 #Does a first pass of the tree to get initial labels for the internal nodes:
@@ -513,290 +526,6 @@ initialInternalLabels <- function(tree, clad, nTaxa, numNodes)
   newClad 
 }
 
-#Given a controlling character, and an initial labeling for its dependent characters, 
-#compute the scores & labeling for controlling character 
-#   Start with binary states:  the return is a list of the best score if the controlling is 0 (absent) and 1 (present)
-#       at each node.  
-#   The idea is all the dependent characters can then be dropped, and only this labeling & score for the
-#       primary is needed going forward.
-#       The state of the primary is then set to "ordered" and 
-#Returns:  score at each node for if the trait is absent/present:
-scorePrimary <- function(tree, clad, nTaxa, numNodes, alpha, previous=FALSE)
-{
-    #Assumes the first character is controlling and the rest are dependent on it.  
-    #Follows the same set up as in hsjHelper, except that:
-    #   1) it uses any previous score that might have been computed for that column
-    #   2) it returns the whole column, instead of just the final score
-
-    ### Assumes that the clad object has an additional matrix that keeps track of contribution/score for 
-    ### that character at that node.  
-    ###     If character is non-controlling, then it's 1.  
-    ###     If character is controlling, then it's the fractional contribution computed using the alpha function
-    ### If there are no previous computations (i.e. this is the lowest level in the nesting), then contributions
-    ###     are computed as 1 to start.
-    ### Contributions are returned to be used at the next level.
-  
-    if (previous == FALSE)
-    {
-      #Lowest level in the nesting:
-      contributes <- matrix(-1, nrow = length(clad$matrix_1$matrix[,1]),ncol = 2)
-      
-    }
-  
-    #Set up running counters:
-    numChanges <- 0
-    score <- 0
-    
-    #Otherwise, we have a controlling character (in first position) and secondaries to it:
-    secondaries <- c(2:length(charTypes[,1]))
-    
-    #Make a matrix for bookkeeping for each controlling primary (best score if node 
-    # is score 0 or scored 1)
-    scores <- matrix(-1, nrow = length(clad$matrix_1$matrix[,1]),ncol = 2)
-    #Set up values for tips:
-    for (i in (1:nTaxa)) {
-      if (is.na(clad$matrix_1$matrix[i,1])) {
-        #Set to a large value that won't be picked up:
-        scores[i,]<-10
-      }
-      else if (clad$matrix_1$matrix[i,1] == '0') {
-        scores[i,1]<-0
-        scores[i,2]<-10
-      }
-      else{
-        scores[i,1]<-10
-        scores[i,2]<-0
-      }    
-    }
-    
-    colnames(scores) <- c("Best for Label 0","Best for Label 1")
-    score <- 0
-    
-    #Make a pass through the tree and score via Fitch:
-    #Since in post-order, can assume edges come in pairs to the same parent:
-    for (i in seq(1,nrow(tree$edge),2))
-    {
-      par = tree$edge[i,1]
-      c1 = tree$edge[i,2]
-      c2 = tree$edge[i+1,2]
-      
-      #Check first to see if the controlling primary is missing for either child,
-      #  If that's the case, the score is that of the child:
-      if ( is.na(clad$matrix_1$matrix[c1,1]) )
-      {
-        if ( is.na(clad$matrix_1$matrix[c2,1]) )
-        {
-          #Both c1 and c2 have missing data as their state for the controlling primary.
-          # set scores to 0, since nothing can be contributed if both missing:
-          scores[par,1] = 0
-          scores[par,2] = 0
-        }
-        else
-        {
-          #c1 is missing, but c2 has a state, then use the values for absence and presence of c2:
-          scores[par,1] = min(scores[c2,1],scores[c2,2]+1) 
-          scores[par,2] = min(scores[c2,2]+1,scores[c2,2])
-        }
-      }
-      else
-      {
-        #c1 is not missing, but check if c2 is:
-        if ( is.na(clad$matrix_1$matrix[c2,1]))
-        {
-          #c2 is missing, but c1 has a state, then use the values for absence and presence of c1:
-          scores[par,1] = min(scores[c1,1],scores[c1,2]+1) 
-          scores[par,2] = min(scores[c1,1]+1,scores[c1,2])
-        }
-        
-        ####  In the case where neither c1 or c2 is missing:
-        else 
-        {
-          c1M1 <- 0
-          c1M2 <- 0
-          c2M1 <- 0
-          c2M2 <- 0
-          #Special cases for leaves:
-          if ( c1 <= nTaxa) {
-            if ( clad$matrix_1$matrix[c1,1] == "0" ) {
-              c1M1 = 0  #leaf has 0 as its primary character
-              c1M2 = 10 #something big, so, it won't get chosen
-            }
-            else {
-              c1M1 = 10 #something big, so, it won't get chosen
-              c1M2 = 0  #leaf has 1 as its primary character
-            }
-          }
-          else {
-            c1M1 = max(0, scores[c1,1])
-            c1M2 = max(0, scores[c1,2])
-          }
-          if ( c2 <= nTaxa) {
-            if ( clad$matrix_1$matrix[c2,1] == "0" ) {
-              c2M1 = 0  #leaf has 0 as its primary character
-              c2M2 = 10 #something big, so, it won't get chosen
-            }
-            else {
-              c2M1 = 10 #something big, so, it won't get chosen
-              c2M2 = 0  #leaf has 1 as its primary character
-            }
-          }
-          else {
-            c2M1 = max(0, scores[c2,1])
-            c2M2 = max(0, scores[c2,2])
-          }
-          
-          #By definition, the parent is not a leaf node, so, can have either value:
-          #When it's 0, we can compute it directly (first making sure that we're not 
-          #picking up the -1 that are placeholders)
-          scores[par,1] = min(c1M1+c2M1, c1M1+c2M2+1, c1M2+c2M1+1, c1M2+c2M2+2)
-          
-          
-          #To compute when the primary character is present, 3 out of 4 cases can be computed 
-          # directly, but we need to compute the 4th one (all three are present) using the 
-          # alpha coefficient:
-          #Special cases for leaves:
-          if ( (c1 <= nTaxa) & (clad$matrix_1$matrix[c1,1] == "0") ) {
-            #It's a leaf that has primary state is 0, so, no need to compute the alpha distance:
-            scores[par,2] = min(c2M1+2,c2M2+1)
-          }
-          else if ( (c2 <= nTaxa) & (clad$matrix_1$matrix[c2,1] == "0") ) {
-            #It's a leaf that has primary state is 0, so, no need to compute the alpha distance:
-            scores[par,2] = min(c1M1+2,c1M2+1)
-          }
-          else {
-            #The children both have computed values for the primary being present:
-            tmp <- clad
-            tmp$matrix_1$matrix[c1, 1] <- "1"
-            tmp$matrix_1$matrix[c2, 1] <- "1"
-            tmp$matrix_1$matrix[par, 1] <- "1"
-            for (s in secondaries) {
-              #Look for any overlap in the labels
-              if ( (!is.na(tmp$matrix_1$matrix[[par,s]])) & (tmp$matrix_1$matrix[[par, s]] != "")) {
-                #The parent label is non-empty:
-                paru <- sort(unlist(strsplit(tmp$matrix_1$matrix[par, s], '/')))
-                if ( (!is.na(tmp$matrix_1$matrix[[c1,s]])) & (tmp$matrix_1$matrix[[c1, s]] != "")) {
-                  #First child's label is non-empty:
-                  c1u <- sort(unlist(strsplit(tmp$matrix_1$matrix[c1, s], '/')))
-                  overlap <- c1u[(c1u %in% paru)]
-                  if (length(overlap) == 0) {
-                    #Nothing in common, so, set c1 to any of its labels
-                    tmp$matrix_1$matrix[[c1,s]] <- c1u[[1]]
-                    if ( (!is.na(tmp$matrix_1$matrix[[c2,s]])) & (tmp$matrix_1$matrix[[c2, s]] != "")) {
-                      #c2 has a label:
-                      c2u <- sort(unlist(strsplit(tmp$matrix_1$matrix[c2, s], '/')))
-                      overlap2 <- c2u[(c2u %in% paru)]    
-                      if (length(overlap2) == 0){
-                        #None have anything in common, so, set to the first of each:
-                        tmp$matrix_1$matrix[[c2,s]] <- c2u[[1]]
-                        tmp$matrix_1$matrix[[par,s]] <- paru[[1]]
-                      }
-                      else {
-                        #No overlap with c1
-                        #And to compute distance, the last two to something in common:
-                        tmp$matrix_1$matrix[[c2,s]] <- overlap2[[1]]
-                        tmp$matrix_1$matrix[[par,s]] <- overlap2[[1]]
-                      }
-                    }
-                    else {
-                      #c2 doesn't have a label, so, no need to set it, just set par to one of its labels:
-                      tmp$matrix_1$matrix[[par,s]] <- paru[[1]]
-                    }
-                  }
-                  else {
-                    #There's something in common, so, check against c2:
-                    if ( (!is.na(tmp$matrix_1$matrix[[c2,s]])) & (tmp$matrix_1$matrix[[c2, s]] != "")) {
-                      #c2 has a label:
-                      c2u <- sort(unlist(strsplit(tmp$matrix_1$matrix[c2, s], '/')))
-                      overlap2 <- c2u[(c2u %in% overlap)]
-                      if (length(overlap2) == 0){
-                        #No overlap with c2
-                        #And to compute distance, the first two to something in common:
-                        tmp$matrix_1$matrix[[c1,s]] <- overlap[[1]]
-                        tmp$matrix_1$matrix[[par,s]] <- overlap[[1]]
-                        tmp$matrix_1$matrix[[c2,s]] <- c2u[[1]]
-                      }
-                      else {
-                        #All three have something in common
-                        tmp$matrix_1$matrix[[c1,s]] <- overlap2[[1]]
-                        tmp$matrix_1$matrix[[c2,s]] <- overlap2[[1]]
-                        tmp$matrix_1$matrix[[par,s]] <- overlap2[[1]]
-                      }
-                    }
-                    else {
-                      #c2 doesn't have a label, so, only set c1 and par:
-                      tmp$matrix_1$matrix[[c1,s]] <- overlap[[1]]
-                      tmp$matrix_1$matrix[[par,s]] <- overlap[[1]]
-                    }
-                  }
-                }            
-                else {
-                  #c1 is empty, check c2:
-                  if ( (!is.na(tmp$matrix_1$matrix[[c2,s]])) & (tmp$matrix_1$matrix[[c2, s]] != "")) {
-                    #c2 has a label:
-                    c2u <- sort(unlist(strsplit(tmp$matrix_1$matrix[c2, s], '/')))
-                    overlap2 <- c2u[(c2u %in% paru)]
-                    if (length(overlap2) == 0){
-                      #No overlap with c2:
-                      tmp$matrix_1$matrix[[par,s]] <- paru[[1]]
-                      tmp$matrix_1$matrix[[c2,s]] <- c2u[[1]]
-                    }
-                    else {
-                      #c2 and par have something in common:
-                      tmp$matrix_1$matrix[[c2,s]] <- overlap2[[1]]
-                      tmp$matrix_1$matrix[[par,s]] <- overlap2[[1]]
-                    }
-                  }
-                  else {
-                    #c1 and c2 are empty, so, set par to be one of its labels:
-                    tmp$matrix_1$matrix[[par,s]] <- paru[[1]]
-                  }
-                }
-              }
-              else {
-                #The parent has an empty label, so, the kids can be set to the first label for each:
-                if ( (!is.na(tmp$matrix_1$matrix[[c1,s]])) & (tmp$matrix_1$matrix[[c1, s]] != "")) {
-                  c1u <- sort(unlist(strsplit(tmp$matrix_1$matrix[c1, s], '/')))
-                  tmp$matrix_1$matrix[[c1u,s]] <- c1u[[1]]
-                }
-                if ( (!is.na(tmp$matrix_1$matrix[[c2,s]])) & (tmp$matrix_1$matrix[[c2, s]] != "")) {
-                  c2u <- sort(unlist(strsplit(tmp$matrix_1$matrix[c2, s], '/')))
-                  tmp$matrix_1$matrix[[c2u,s]] <- c2u[[1]]                
-                }
-              }
-            }  
-            #Restrict matrix to the 3 nodes:
-            tmp$matrix_1$matrix <- tmp$matrix_1$matrix[c(c1, c2, par), ]
-            
-            d = alpha.coefficient(tmp$matrix_1, type = charTypes, alpha = alpha)
-            #d = MorphDistMatrix(CladisticMatrix = tmp, Distance = "GC",
-            #                    TransformDistances = "none", InapplicableBehaviour = "HSJ",
-            #                    CharacterDependencies = charTypes, Alpha = alpha)
-            
-            #R starts counting at 1, so, add 1 to access the "0" and "1" columns in score
-            #The last term adds the difference if l1 and p have different labels and l2 and p are different
-            scores[par, 2] = min(c1M1 + c2M1 + 2, c1M1 + c2M2 + 1, c1M2 + c2M1 +
-                                   1, c1M2 + c2M2 + d[1, 3] + d[2, 3])
-            if ( (c1M1 + c2M2 + 1 <= scores[par,2]) & (c1M1 + c2M2 + 1 < c1M2 + c2M2 + d[1, 3] + d[2, 3])) {
-              #### If the lowest score is due to a child being present and other absent, copy 
-              #### the present child's secondary character states to the parent, since that 
-              #### needs to be fixed to propagate up the tree:
-              clad$matrix_1$matrix[par,secondaries] = clad$matrix_1$matrix[c2,secondaries]
-            }
-            if ( (c1M2 + c2M1 + 1 <= scores[par,2]) & (c1M2 + c2M1 + 1 < c1M2 + c2M2 + d[1, 3] + d[2, 3])) {
-              #### If the lowest score is due to a child being present and other absent, copy 
-              #### the present child's secondary character states to the parent, since that 
-              #### needs to be fixed to propagate up the tree:
-              clad$matrix_1$matrix[par,secondaries] = clad$matrix_1$matrix[c1,secondaries]
-            }          
-          }
-        }
-        score = min(scores[par,1],scores[par,2])
-      }
-    }
-    #print(paste('score for par',par,'is',scores[par,1],scores[par,2],sep=" "))
-    return(scores)  
-    
-}
 
 
 
