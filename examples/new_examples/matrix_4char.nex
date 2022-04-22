@@ -1,0 +1,43 @@
+#NEXUS
+BEGIN DATA;
+DIMENSIONS NTAX=24 NCHAR=4; 
+FORMAT SYMBOLS= "01" MISSING=? GAP=-;
+MATRIX
+t1  1111
+t2  1110
+t3  100-
+t4  100- 
+t5  0---
+t6  0---
+t7  0---
+t8  0---
+t9  0---
+t10 0---
+t11 1111
+t12 1111
+t13 1110
+t14 1110
+t15 110-
+t16 110-
+t17 110-
+t18 100-
+t19 100-
+t20 100-
+t21 1011
+t22 1011
+t23 1010
+t24 1010
+; 
+END; 
+BEGIN ASSUMPTIONS; 
+OPTIONS DEFTYPE=unord PolyTcount=MINSTEPS; 
+TYPESET * UNTITLED = unord: 1-5; 
+WTSET * UNTITLED = 1: 1-5; 
+END;
+
+BEGIN TREES;
+TREE * UNTITLED = [&R] (((((((t1,t2),t3),t4),t5),t6),t7),(t8,(t9,(t10,(((((((t11,t12),t13),t14),t15),t16),t17),(t18,(t19,(t20,(t21,(t22,(t23,t24)))))))))));
+TREE * UNTITLED = [&R] (((((((t1,t2),t3),t4),t5),t6),t7),(t8,(t9,(t10,(((((((t11,t12),t13),t14),t15),t16),t17),(t18,(t19,(t20,(t23,(t24,(t21,t22))))))))))); 
+TREE * UNTITLED = [&R] (((((((t3,t2),t1),t4),t5),t6),t7),(t8,(t9,(t10,(((((((t11,t12),t13),t14),t15),t16),t17),(t18,(t19,(t20,(t21,(t22,(t23,t24)))))))))));
+TREE * UNTITLED = [&R] (((((((t1,t2),(t3,t4)),t5),t6),t7),(t8,(t9,(t10,(((((((t11,t12),(t13,t14)),t15),t16),t17),(t18,(t19,(t20,((t21,t22),(t23,t24))))))))))));
+END;
