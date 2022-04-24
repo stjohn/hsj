@@ -65,9 +65,14 @@ hsjScorer <- function(parent, child, phyDat,clad, charTypes, alpha=0.5,
   
     #Make sure charTypes has a heading:
     colnames(charTypes)<-c('Char','Type','Sub')
+    #And update to use numbers for levels, instead of P, S, and T:
+    charTypes$Type[which(charTypes$Type =='P')] <-1
+    charTypes$Type[which(charTypes$Type =='S')] <-2
+    charTypes$Type[which(charTypes$Type =='T')] <-3
+    
     #Identify the controlling characters & primaries:   
     controlling <-unique(charTypes[which(is.na(charTypes$Sub)=='FALSE'),3])    
-    primaries <- which(charTypes$Type=='P')
+    primaries <- which(charTypes$Type==1)
     controllingPrimaries <- controlling[ controlling %in% primaries ]
     
     #Get the "special" characters (i.e. those that are secondary and tertiary)    
@@ -209,7 +214,13 @@ hsjHelper <- function(tree, clad, nTaxa, numNodes, alpha,cPrim=FALSE,charTypes=N
   #   By construction, the types are organized as c(p,sec,tert) so the indices  
   #     for the secondaries range from 2 to length of secondaries, and the 
   #     possibly preset columns are at the end.
-
+  
+  #Set up character dependencies to be used by claddis::calculate_morphological_distances:
+  char_dep <- cbind(charTypes$Char, charTypes$Sub)
+  colnames(char_dep)<-c('dependent_character','independent_character')
+  char_dep <- na.omit(char_dep)
+  
+  
   #Ignore the last preset number of columns since they've been set already (default is 0 have been preset):
   secondaries <- c(2:(nrow(charTypes) - preset))
   
@@ -429,14 +440,23 @@ hsjHelper <- function(tree, clad, nTaxa, numNodes, alpha,cPrim=FALSE,charTypes=N
           }  
           #Restrict matrix to the 3 nodes:
           tmp$matrix_1$matrix <- tmp$matrix_1$matrix[c(c1, c2, par), ]
-          
-          d = alpha.coefficient(tmp$matrix_1, type = charTypes, alpha = alpha)
+          #Use new version of claddis:
+  #Are the parameters correct?  Should we use gc or mord?  Should ged_type be set?
+          distances <- calculate_morphological_distances(cladistic_matrix = tmp, 
+                                                inapplicable_behaviour = "hsj",
+                                                distance_metric = "gc",
+                                                character_dependencies = char_dep,
+                                                alpha = alpha)
+          d <- distances$distance_matrix
+          #d = alpha.coefficient(tmp$matrix_1, type = charTypes, alpha = alpha)
           #d = MorphDistMatrix(CladisticMatrix = tmp, Distance = "GC",
           #                    TransformDistances = "none", InapplicableBehaviour = "HSJ",
           #                    CharacterDependencies = charTypes, Alpha = alpha)
           
           #R starts counting at 1, so, add 1 to access the "0" and "1" columns in score
           #The last term adds the difference if l1 and p have different labels and l2 and p are different
+      #Claddis returns NA if both controlling are 0, so, need to set those to 0:
+          d[is.na(d)] = 0
           scores[par, 2] = min(c1M1 + c2M1 + 2, c1M1 + c2M2 + 1, c1M2 + c2M1 +
                                  1, c1M2 + c2M2 + d[1, 3] + d[2, 3])
           if ( (c1M1 + c2M2 + 1 <= scores[par,2]) & (c1M1 + c2M2 + 1 < c1M2 + c2M2 + d[1, 3] + d[2, 3])) {
