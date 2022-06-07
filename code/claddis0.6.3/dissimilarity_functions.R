@@ -14,12 +14,29 @@
 ##note that delta{ijk} = 1 when characters are comparable, consistent with Gower's initial formulation. It may be preferable to replace the total number of 
 #comparable characters with the maximum character total possible (Lloyd's MORB metric) especially if there are ordered characters. This is not implemented here
 #but could be done by modifying lines 90 and 212 for the new metric and Gower's, respectively 
+
+## Updated June 2022 to score unlimited nesting of character dependencies.  
+##      Dependencies can be entered as 'P', 'S', and 'T' if only primary, secondary and tertiary dependencies, 
+##          or as 1 for primary, 2 for secondary, ... for more levels.
+##      Also updated weightings to handle more levels.
 #################
 
+
 alpha.coefficient<-function(matr,type,alpha){
+  #Update for new versions of claddis (extra level, matrix_1 in object & lower case attribute names):
+  matr <- m$matrix_1
   pairs<-combn(nrow(matr$matrix),2)
   HSJ<-matrix(NA,nrow=nrow(matr$matrix),ncol=nrow(matr$matrix))
   alpha<-alpha
+  
+  #Update to use numbers for levels, instead of P, S, and T:
+  type$Type[which(type$Type =='P')] <-1
+  type$Type[which(type$Type =='S')] <-2
+  type$Type[which(type$Type =='T')] <-3
+  type$Type <- as.numeric(type$Type)
+  max_levels <- max(type$Type)
+  
+  
   for (i in 1:ncol(pairs)){
     sim.temp<-matrix(abs(suppressWarnings(as.numeric(matr$matrix[pairs[1,i],]))-
                            suppressWarnings(as.numeric(matr$matrix[pairs[2,i],]))))
@@ -60,33 +77,32 @@ alpha.coefficient<-function(matr,type,alpha){
         }
       }
     }
-    #account for Tertiary characters (by weighting)
-    if (any(type$Type=='T')){
-      te<-which(type$Type=='T')
-      for (j in 1:length(unique(type$Sub[te]))){
-        te.sub<-which(type$Sub==as.character(unique(type$Sub[te])[j]))
-        te.sim<-sim.temp[te.sub]
-        s.te<-as.numeric(as.character(unique(na.omit(type$Sub[te])))[j])
-        if (length(na.omit(te.sim))>0) {
-          sim.temp[s.te]<-1-(alpha*(1-(sum(na.omit(te.sim))/length(na.omit(te.sim))))+(1-alpha))  #alpha is applied as if it were a similarity measure, therefore the distance is converted to a similarity by substracted from one, then the whole thing is substracted from one to convert back to dissimilarity
-          sim.temp[te.sub]<-NA
+
+
+    #Weight all characters:
+    sim.temp <- sim.temp*matr$character_weights
+    
+    #Start with the max_level, compute it's contribution to the score, and then work down until 
+    #   level 1 (primary) characters:
+    for (m in max_levels:1){
+      if (any(type$Type==m)){
+        te<-which(type$Type==m)
+        for (j in 1:length(unique(type$Sub[te]))){
+          te.sub<-which(type$Sub==as.character(unique(type$Sub[te])[j]))
+          te.sim<-sim.temp[te.sub]
+          s.te<-as.numeric(as.character(unique(na.omit(type$Sub[te])))[j])
+          if (length(na.omit(te.sim))>0) {
+            #Need to add in the weighted count for the denominator:
+            wts <- matr$character_weights[te.sub]
+            wts[which(is.na(te.sim))] <- NA
+            sim.temp[s.te]<-1-(alpha*(1-(sum(na.omit(te.sim))/sum(na.omit(wts))))+(1-alpha))  #alpha is applied as if it were a similarity measure, therefore the distance is converted to a similarity by substracted from one, then the whole thing is substracted from one to convert back to dissimilarity
+            sim.temp[te.sub]<-NA
+          }
         }
       }
+      
     }
     
-    #account for secondary characters (by weighting)
-    if (any(type$Type=='S')){
-      s<-which(type$Type=='S')
-      for (j in 1:length(unique(type$Sub[s]))){
-        s.sub<-which(type$Sub==as.character(unique(type$Sub[s])[j]))
-        s.sim<-sim.temp[s.sub]
-        p.s<-as.numeric(as.character(unique(na.omit(type$Sub[s])))[j])
-        if (length(na.omit(s.sim))>0) {
-          sim.temp[p.s]<-1-(alpha*(1-(sum(na.omit(s.sim))/length(na.omit(s.sim))))+(1-alpha))
-          sim.temp[s.sub]<-NA
-        }
-      }
-    }
     #calculate total dissimilarity
     wt.comp.char<-sum(na.omit(cbind(sim.temp,matr$character_weights))[,2])
     HSJ[pairs[1,i],pairs[2,i]]<-HSJ[pairs[2,i],pairs[1,i]]<-sum(na.omit(sim.temp*matr$character_weights))/wt.comp.char
@@ -94,6 +110,8 @@ alpha.coefficient<-function(matr,type,alpha){
   diag(HSJ)<-0
   return(HSJ)
 }
+
+
 
 
 
