@@ -53,7 +53,8 @@ hsjScorer <- function(parent, child, phyDat,clad, charTypes, alpha=0.5,
     #Search expects the tips to be in the same order as in the phyDat object:
     tree <- RenumberTips(tree,names(phyDat))
     #Update to use with new version of TreeSearch and TreeTools:
-    edgeList <- PostorderEdges(cbind(parent, child))
+    #edgeList <- PostorderEdges(cbind(parent, child))
+    edgeList <- tree$edge[order(tree$edge[,1],decreasing = TRUE),]
     tree$edge <- edgeList
     #Set up extended matrix:
     numNodes = length(parent)+1
@@ -98,7 +99,7 @@ hsjScorer <- function(parent, child, phyDat,clad, charTypes, alpha=0.5,
           te<-which(charTypes$Type==lev)
           for (j in 1:length(unique(charTypes$Sub[te]))){
             #Find the controlling character
-            te.sub<-which(charTypes$Sub==as.character(unique(charTypes$Sub[te])[j]))
+            te.sub<-which(charTypes$Char==as.character(unique(charTypes$Sub[te])[j]))
             #Restrict to the controlling and dependents & compute values to be used in next level:
             restricted <- restrict_clad(clad2,c(j,te.sub))
             restrictedTypes <- renumber_types(charTypes,c(j,te.sub))
@@ -424,14 +425,14 @@ initialInternalLabels <- function(tree, clad, nTaxa, numNodes)
   newClad$matrix_1$CharChanges <- c(rep(0,k))
   emptyElt <- c(rep("",k))
   addedNames <- paste("t",seq(nTaxa+1,numNodes),sep="")
-  extendedNames <- c(row.names(newClad$matrix_1$matrix),addedNames)
+  extendedNames <- c(rownames(newClad$matrix_1$matrix),addedNames)
   #Look up how to do this without a loop-- should be able to rep the rows...
   for (i in 1:tree$Nnode)
   {
     newClad$matrix_1$matrix <- rbind(newClad$matrix_1$matrix,emptyElt)
   }
   #Add in the names for the new rows:
-  row.names(newClad$matrix_1$matrix) <- extendedNames
+  rownames(newClad$matrix_1$matrix) <- extendedNames
   #For each node with children, assign a label:
   #Since in post-order, can assume edges come in pairs to the same parent:
   for (i in seq(1,nrow(tree$edge),2))
