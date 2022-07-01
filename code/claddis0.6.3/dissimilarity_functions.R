@@ -22,9 +22,9 @@
 #################
 
 
-alpha.coefficient<-function(matr,type,alpha){
+alpha.coefficient<-function(mm,type,alpha){
   #Update for new versions of claddis (extra level, matrix_1 in object & lower case attribute names):
-  matr <- m$matrix_1
+  matr <- mm$matrix_1
   pairs<-combn(nrow(matr$matrix),2)
   HSJ<-matrix(NA,nrow=nrow(matr$matrix),ncol=nrow(matr$matrix))
   alpha<-alpha
