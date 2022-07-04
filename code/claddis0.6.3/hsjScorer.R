@@ -98,12 +98,14 @@ hsjScorer <- function(parent, child, phyDat,clad, charTypes, alpha=0.5,
           #Identify all characters at that level        
           te<-which(charTypes$Type==lev)
           for (j in 1:length(unique(charTypes$Sub[te]))){
-            #Find the controlling character
+            #Find the controlling character:
             te.sub<-which(charTypes$Char==as.character(unique(charTypes$Sub[te])[j]))
+            #Find all its dependent characters:
+            te.char <- which(charTypes$Sub==te.sub)
             #Restrict to the controlling and dependents & compute values to be used in next level:
-            restricted <- restrict_clad(clad2,c(j,te.sub))
-            restrictedTypes <- renumber_types(charTypes,c(j,te.sub))
-            restrictedScores <- scoring[c(j,te.sub),,,]
+            restricted <- restrict_clad(clad2,c(te.sub,te.char))
+            restrictedTypes <- renumber_types(charTypes,c(te.sub,te.char))
+            restrictedScores <- scoring[c(te.sub,te.char),,,]
             #Add newly computed scores for the controlling character to the scores:
             #Want to set the whole row:
             scoring[j,,,] <- hsjHelper(tree,restricted, nTaxa, numNodes, alpha, restrictedScores, cPrim = TRUE, 
@@ -313,10 +315,10 @@ hsjHelper <- function(tree, clad, nTaxa, numNodes, alpha, scoring, cPrim=FALSE,c
             tmp$matrix_1$matrix <- save[c(par,c2), ]
             distances <- alpha.coefficient(tmp,charTypes,alpha)            
             d2 <- distances[1,2]           
-            tmp <- base[c1_lab,c2_lab] + d1 + d2
-            if (tmp <= currentMin)
+            dd <- base[c1_lab,c2_lab] + d1 + d2
+            if (dd <= currentMin)
             {
-                currentMin <- min(currentMin, tmp)
+                currentMin <- dd
                 contrib1 <- d1
                 contrib2 <- d2
             }
@@ -348,10 +350,10 @@ hsjHelper <- function(tree, clad, nTaxa, numNodes, alpha, scoring, cPrim=FALSE,c
            # }          
           }
           else { #p_label == c1_label but c2_label are different
-            tmp <- base[c1_lab,c2_lab] + 1
-            if (tmp <= currentMin)
+            dd <- base[c1_lab,c2_lab] + 1
+            if (dd <= currentMin)
             {
-              currentMin <- min(currentMin, tmp)
+              currentMin <- dd
               contrib1 <- -1
               contrib2 <- -1
             }            
@@ -359,10 +361,10 @@ hsjHelper <- function(tree, clad, nTaxa, numNodes, alpha, scoring, cPrim=FALSE,c
           }
         }
         else {
-          tmp <- base[c1_lab,c2_lab] + 1
-          if (tmp <= currentMin)
+          dd <- base[c1_lab,c2_lab] + 1
+          if (dd <= currentMin)
           {
-            currentMin <- min(currentMin, tmp)
+            currentMin <- dd
             contrib1 <- -1
             contrib2 <- -1
           }          
